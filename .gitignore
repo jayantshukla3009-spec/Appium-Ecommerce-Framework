@@ -1,0 +1,9 @@
+target/
+test-output/
+*.class
+
+# Eclipse
+.classpath
+.project
+.settings/
+*.iml
