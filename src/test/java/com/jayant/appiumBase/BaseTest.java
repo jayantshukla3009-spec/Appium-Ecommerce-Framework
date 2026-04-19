@@ -1,6 +1,7 @@
-package com.jayant.appium;
+package com.jayant.appiumBase;
 
 import java.net.MalformedURLException;
+
 import java.net.URL;
 
 import com.jayant.utils.ConfigReader;
