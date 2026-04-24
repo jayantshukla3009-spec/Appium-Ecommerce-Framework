@@ -9,8 +9,8 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 
 public class BaseTest {
-	public static AndroidDriver driver;
-	public static void setUp() {
+	protected AndroidDriver driver;
+	protected void setUp() {
 		UiAutomator2Options options = new UiAutomator2Options();
 		String path = System.getProperty("user.dir")+"/"+ConfigReader.get("app");
 		options.setApp(path);
@@ -25,14 +25,13 @@ public class BaseTest {
 			// driver creation 
 			 driver = new AndroidDriver(url,options);
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		
 		//System.out.println("SessionID : "+driver.getSessionId());
 	}
-	public static void tearDown() {
+	protected void tearDown() {
 		if(driver!=null) {
 			driver.quit();
 		}

@@ -1,35 +1,39 @@
 package com.jayant.pages;
 
-import java.time.Duration;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
+
+import com.jayant.utils.Wait_Utils;
 
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 
 
-public class LoginPage {
+public class OnboardingPage {
 	private AndroidDriver driver;
+	private Wait_Utils wait;
 	// Locators
 	private By countryDropClick = By.id("com.androidsample.generalstore:id/spinnerCountry");
 	private By enterName = By.id("com.androidsample.generalstore:id/nameField");
 	private By genderMale = By.id("com.androidsample.generalstore:id/radioMale");
 	private By genderFemale = By.id("com.androidsample.generalstore:id/radioFemale");
 	private By goButtonClick = By.id("com.androidsample.generalstore:id/btnLetsShop");
-	
-public LoginPage(AndroidDriver driver) {
+	private By productHead = By.id("com.androidsample.generalstore:id/toolbar_title");
+
+	// constructor
+	public OnboardingPage(AndroidDriver driver) {
 	this.driver = driver;
+	wait  = new Wait_Utils(driver);
 }
  
 
     // Select Country
     public void selectCountry(String country) {
        
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+       
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(countryDropClick)).click();
+        wait.waitForVisibility(countryDropClick).click();
 
         driver.findElement(AppiumBy.androidUIAutomator(
             "new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(text(\"" + country + "\"));"
@@ -56,6 +60,20 @@ public LoginPage(AndroidDriver driver) {
     public void goButton() {
     	driver.findElement(goButtonClick).click();
     }
+    
+    // product page 
+    public boolean visibilityOfProductHead() {
+    	
+    	return wait.waitForVisibility(productHead).isDisplayed();
+    }
+    
+    public void perform_Boarding(String country , String name , String gender) {
+    	selectCountry(country);
+    	enterYourName(name);
+    	genderSelection(gender);
+    	goButton();
+    }
+    
 
   
 }
